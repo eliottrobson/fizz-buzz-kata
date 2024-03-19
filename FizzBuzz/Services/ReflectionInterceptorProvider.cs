@@ -19,13 +19,19 @@ public class ReflectionInterceptorProvider : IInterceptorProvider
                 t.IsDefined(divisibleByAttributeType, false)
             )
             // Project out divisible by attribute details
-            .Select(t => new
+            .Select(t => 
             {
-                Instance = (IInterceptor)Activator.CreateInstance(t)!,
-                t.GetCustomAttribute<DivisibleByAttribute>()!.Numbers
+                var attributeData = t.GetCustomAttribute<DivisibleByAttribute>()!;
+                return new
+                {
+                    Instance = (IInterceptor)Activator.CreateInstance(t)!,
+                    attributeData.Numbers,
+                    Priority = attributeData.Order
+                };
             });
         
         return interceptors
+            .OrderBy(v => v.Priority)
             .Select(x => new DivisibleByInterceptor(x.Instance, x.Numbers))
             .ToList();
     }

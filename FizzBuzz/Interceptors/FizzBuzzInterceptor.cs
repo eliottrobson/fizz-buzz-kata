@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace FizzBuzz.Interceptors;
 
-[DivisibleBy(3, 5), UsedImplicitly /* Activator.CreateInstance */]
+[DivisibleBy(3, 5, Order = 10), UsedImplicitly /* Activator.CreateInstance */]
 public sealed class FizzBuzzInterceptor : IInterceptor
 {
     public string Value => "FizzBuzz";
