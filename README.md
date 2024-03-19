@@ -1,1 +1,1 @@
-# fizz-buzz-kata
+# FizzBuzz Kata
