@@ -1,3 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using FizzBuzz;
+using Microsoft.Extensions.DependencyInjection;
 
-Console.WriteLine("Hello, World!");
+var serviceProvider = new ServiceCollection()
+    .AddTransient<Runtime>()
+    .BuildServiceProvider();
+
+var runtime = serviceProvider.GetRequiredService<Runtime>();
+runtime.Run();
