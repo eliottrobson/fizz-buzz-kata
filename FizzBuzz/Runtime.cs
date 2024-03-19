@@ -1,11 +1,19 @@
-﻿namespace FizzBuzz;
+﻿using FizzBuzz.Services.Contracts;
 
-internal class Runtime
+namespace FizzBuzz;
+
+internal class Runtime(
+    IRangeProvider rangeProvider,
+    INumberProvider numberProvider,
+    IOutputProvider outputProvider
+)
 {
     public void Run()
     {
-        // Get range of numbers
-        // Calculate output for each number
-        // Output the number
+        foreach (var number in rangeProvider.GetRange())
+        {
+            var value = numberProvider.GetOutput(number);
+            outputProvider.Output(value);
+        }
     }
 }
