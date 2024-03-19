@@ -7,6 +7,7 @@ var serviceProvider = new ServiceCollection()
     .AddTransient<IRangeProvider, RangeProvider>()
     .AddTransient<INumberProvider, DivisibleByNumberProvider>()
     .AddTransient<IOutputProvider, ConsoleOutputProvider>()
+    .AddTransient<IInterceptorProvider, ReflectionInterceptorProvider>()
     .AddTransient<Runtime>()
     .BuildServiceProvider();
 

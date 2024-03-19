@@ -1,10 +1,22 @@
 ﻿using FizzBuzz.Services;
+using FizzBuzz.Services.Contracts;
+using FizzBuzz.Tests.Mocks.Interceptors;
 
 namespace FizzBuzz.Tests.Tests.Services;
 
 public class DivisibleByNumberProviderTests
 {
-    private readonly DivisibleByNumberProvider _divisibleByNumberProvider = new();
+    private readonly DivisibleByNumberProvider _divisibleByNumberProvider;
+
+    public DivisibleByNumberProviderTests()
+    {
+        var interceptorProvider = Substitute.For<IInterceptorProvider>();
+        interceptorProvider.GetInterceptors().Returns([
+            new DivisibleByInterceptor(new MockInterceptor("DIV_BY_3_AND_5"), [3, 5]),
+            new DivisibleByInterceptor(new MockInterceptor("DIV_BY_3"), [3])
+        ]);
+        _divisibleByNumberProvider = new DivisibleByNumberProvider(interceptorProvider);
+    }
 
     [Theory]
     [InlineData(1, "1")]
