@@ -1,7 +1,12 @@
 ﻿using FizzBuzz;
+using FizzBuzz.Services;
+using FizzBuzz.Services.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = new ServiceCollection()
+    .AddTransient<IRangeProvider, RangeProvider>()
+    .AddTransient<INumberProvider, DivisibleByNumberProvider>()
+    .AddTransient<IOutputProvider, ConsoleOutputProvider>()
     .AddTransient<Runtime>()
     .BuildServiceProvider();
 
